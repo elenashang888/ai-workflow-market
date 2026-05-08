@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小红书全自动运营工作流 - FlowHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #0066FF 0%, #00D4FF 100%);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .back-link {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .back-link:hover {
+            color: #fff;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: #10b981;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+        
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .meta-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .meta-item {
+            text-align: center;
+        }
+        
+        .meta-label {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-bottom: 4px;
+        }
+        
+        .meta-value {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        /* Content */
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+        }
+        
+        .section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #222;
+        }
+        
+        .section h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 30px 0 16px;
+            color: #00D4FF;
+        }
+        
+        .section p {
+            color: #aaa;
+            margin-bottom: 16px;
+            font-size: 16px;
+        }
+        
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin: 30px 0;
+        }
+        
+        .feature-item {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .feature-item h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .feature-item p {
+            color: #888;
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        /* Steps */
+        .step {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 24px;
+        }
+        
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #0066FF, #00D4FF);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .step-title {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .step-content {
+            color: #aaa;
+        }
+        
+        .step-content p {
+            margin-bottom: 12px;
+        }
+        
+        /* Code Block */
+        .code-block {
+            background: #0d0d0d;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+        
+        .code-block .comment {
+            color: #6a9955;
+        }
+        
+        .code-block .string {
+            color: #ce9178;
+        }
+        
+        /* Tips */
+        .tip {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+        
+        .tip-title {
+            font-weight: 600;
+            color: #10b981;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tip p {
+            color: #aaa;
+            margin: 0;
+        }
+        
+        /* Warning */
+        .warning {
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+        
+        .warning-title {
+            font-weight: 600;
+            color: #ff6b6b;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* CTA */
+        .cta-section {
+            background: linear-gradient(135deg, #0066FF 0%, #00D4FF 100%);
+            padding: 60px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .cta-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-white {
+            background: #fff;
+            color: #0066FF;
+        }
+        
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* Resources */
+        .resource-list {
+            list-style: none;
+        }
+        
+        .resource-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #222;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .resource-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .resource-list a {
+            color: #00D4FF;
+            text-decoration: none;
+        }
+        
+        .resource-list a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .meta-info {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .step {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="../../index.html" class="back-link">← 返回工作流列表</a>
+            <div class="badge">🆓 免费版</div>
+            <h1>小红书全自动运营工作流</h1>
+            <p>自动化选题、文案、配图、发布、评论回复，让小红书运营效率提升10倍</p>
+            <div class="meta-info">
+                <div class="meta-item">
+                    <div class="meta-label">难度</div>
+                    <div class="meta-value">⭐⭐ 中级</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">搭建时间</div>
+                    <div class="meta-value">30分钟</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">平台</div>
+                    <div class="meta-value">Make.com</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="content">
+        <!-- Overview -->
+        <section class="section">
+            <h2>📋 工作流概述</h2>
+            <p>这个工作流将帮你实现小红书的全自动运营，从选题到发布再到互动，全部自动化完成。每天节省2-3小时，让你专注于内容策略而非重复操作。</p>
+            
+            <h3>核心功能</h3>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h4>📊 智能选题</h4>
+                    <p>自动监控热门话题，AI推荐今日最佳选题</p>
+                </div>
+                <div class="feature-item">
+                    <h4>✍️ 文案生成</h4>
+                    <p>基于选题自动生成标题、正文、标签</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🎨 自动配图</h4>
+                    <p>Midjourney自动生成封面图和配图</p>
+                </div>
+                <div class="feature-item">
+                    <h4>📱 定时发布</h4>
+                    <p>选择最佳发布时间，自动发布笔记</p>
+                </div>
+                <div class="feature-item">
+                    <h4>💬 评论回复</h4>
+                    <p>AI自动回复常见问题，提升互动率</p>
+                </div>
+                <div class="feature-item">
+                    <h4>📈 数据报告</h4>
+                    <p>每日生成数据报告，追踪运营效果</p>
+                </div>
+            </div>
+
+            <div class="tip">
+                <div class="tip-title">💡 适合人群</div>
+                <p>自媒体创作者、小红书运营者、品牌方运营人员、想要提升效率的内容创作者</p>
+            </div>
+        </section>
+
+        <!-- Prerequisites -->
+        <section class="section">
+            <h2>🛠️ 准备工作</h2>
+            <p>在开始搭建之前，你需要准备以下账号和工具：</p>
+            
+            <h3>必需账号</h3>
+            <ul class="resource-list">
+                <li>
+                    <span>✓</span>
+                    <div>
+                        <strong>Make.com账号</strong>
+                        <br><a href="https://www.make.com" target="_blank">https://www.make.com</a>（免费版即可）
+                    </div>
+                </li>
+                <li>
+                    <span>✓</span>
+                    <div>
+                        <strong>OpenAI API Key</strong>
+                        <br><a href="https://platform.openai.com" target="_blank">https://platform.openai.com</a>（用于ChatGPT）
+                    </div>
+                </li>
+                <li>
+                    <span>✓</span>
+                    <div>
+                        <strong>Midjourney账号</strong>
+                        <br><a href="https://www.midjourney.com" target="_blank">https://www.midjourney.com</a>（用于生成图片）
+                    </div>
+                </li>
+                <li>
+                    <span>✓</span>
+                    <div>
+                        <strong>小红书账号</strong>
+                        <br>需要开通创作者权限
+                    </div>
+                </li>
+            </ul>
+
+            <h3>可选账号</h3>
+            <ul class="resource-list">
+                <li>
+                    <span>○</span>
+                    <div>
+                        <strong>企业微信/飞书</strong>
+                        <br>用于接收通知和报告
+                    </div>
+                </li>
+                <li>
+                    <span>○</span>
+                    <div>
+                        <strong>Google Sheets</strong>
+                        <br>用于数据记录和分析
+                    </div>
+                </li>
+            </ul>
+
+            <div class="warning">
+                <div class="warning-title">⚠️ 重要提醒</div>
+                <p>小红书对自动化操作有一定限制，建议先用小号测试，控制发布频率（每天1-3条），避免触发风控。建议开启"人工审核"模式，发布前确认内容。</p>
+            </div>
+        </section>
+
+        <!-- Cost -->
+        <section class="section">
+            <h2>💰 成本分析</h2>
+            <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                <tr style="background: #111; border-bottom: 1px solid #222;">
+                    <th style="padding: 16px; text-align: left; color: #888;">项目</th>
+                    <th style="padding: 16px; text-align: left; color: #888;">月费用</th>
+                    <th style="padding: 16px; text-align: left; color: #888;">说明</th>
+                </tr>
+                <tr style="border-bottom: 1px solid #222;">
+                    <td style="padding: 16px;">Make.com</td>
+                    <td style="padding: 16px;">¥0</td>
+                    <td style="padding: 16px; color: #888;">免费版足够（1000次操作/月）</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #222;">
+                    <td style="padding: 16px;">OpenAI API</td>
+                    <td style="padding: 16px;">¥10-30</td>
+                    <td style="padding: 16px; color: #888;">按调用量计费</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #222;">
+                    <td style="padding: 16px;">Midjourney</td>
+                    <td style="padding: 16px;">¥70</td>
+                    <td style="padding: 16px; color: #888;">基础版（$10/月）</td>
+                </tr>
+                <tr style="background: rgba(16, 185, 129, 0.1);">
+                    <td style="padding: 16px; font-weight: 600;">总计</td>
+                    <td style="padding: 16px; font-weight: 600; color: #10b981;">¥80-100/月</td>
+                    <td style="padding: 16px; color: #888;">每天不到¥3</td>
+                </tr>
+            </table>
+
+            <div class="tip">
+                <div class="tip-title">💰 ROI计算</div>
+                <p>每天节省2小时 × 30天 = 60小时/月<br>
+                按时薪¥50计算 = ¥3000/月<br>
+                <strong>净收益：¥2900+/月</strong></p>
+            </div>
+        </section>
+
+        <!-- Steps -->
+        <section class="section">
+            <h2>🔧 搭建步骤</h2>
+            <p>按照以下步骤，约30分钟即可完成搭建：</p>
+
+            <!-- Step 1 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">创建Make.com场景</div>
+                </div>
+                <div class="step-content">
+                    <p>首先，我们需要在Make.com中创建一个新的场景（Scenario）：</p>
+                    <ol style="margin-left: 20px; color: #aaa;">
+                        <li style="margin-bottom: 8px;">登录 <a href="https://www.make.com" target="_blank" style="color: #00D4FF;">Make.com</a></li>
+                        <li style="margin-bottom: 8px;">点击左侧菜单 "Scenarios"</li>
+                        <li style="margin-bottom: 8px;">点击右上角 "Create a new scenario"</li>
+                        <li style="margin-bottom: 8px;">点击中央的 "+" 按钮添加第一个模块</li>
+                    </ol>
+                    
+                    <div class="tip">
+                        <div class="tip-title">💡 提示</div>
+                        <p>建议先给场景起个名字，比如 "小红书自动运营"，方便后续管理</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">设置定时触发器</div>
+                </div>
+                <div class="step-content">
+                    <p>我们需要设置一个定时触发器，让工作流每天早上自动运行：</p>
+                    <ol style="margin-left: 20px; color: #aaa;">
+                        <li style="margin-bottom: 8px;">在模块搜索框中输入 "Schedule"</li>
+                        <li style="margin-bottom: 8px;">选择 "Schedule" → "Run on a schedule"</li>
+                        <li style="margin-bottom: 8px;">设置运行时间：每天早上 7:00</li>
+                        <li style="margin-bottom: 8px;">点击 "OK" 保存</li>
+                    </ol>
+                    
+                    <div class="code-block">
+<span class="comment"># 推荐发布时间（根据小红书算法）</span>
+早高峰：8:00-9:00
+午高峰：12:00-13:00
+晚高峰：20:00-22:00
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">添加热门话题监控</div>
+                </div>
+                <div class="step-content">
+                    <p>接下来，我们添加一个模块来获取小红书的热门话题：</p>
+                    <ol style="margin-left: 20px; color: #aaa;">
+                        <li style="margin-bottom: 8px;">点击右侧的 "+" 添加新模块</li>
+                        <li style="margin-bottom: 8px;">搜索并选择 "HTTP" → "Make a request"</li>
+                        <li style="margin-bottom: 8px;">配置请求参数（需要小红书API或第三方数据服务）</li>
+                    </ol>
+                    
+                    <div class="warning">
+                        <div class="warning-title">⚠️ 注意</div>
+                        <p>小红书官方API需要申请，这里我们使用替代方案：可以手动准备一个选题库，或者使用其他数据源。简单起见，可以先跳过这一步，直接设置固定选题。</p>
+                    </div>
+
+                    <div class="tip">
+                        <div class="tip-title">💡 简化方案</div>
+                        <p>新手建议：先在Google Sheets中创建一个选题库，工作流从中随机选择话题。熟练后再接入自动监控。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">配置ChatGPT文案生成</div>
+                </div>
+                <div class="step-content">
+                    <p>这是核心步骤，让AI自动生成小红书文案：</p>
+                    <ol style="margin-left: 20px; color: #aaa;">
+                        <li style="margin-bottom: 8px;">添加模块：搜索 "OpenAI" → "Create a Completion"</li>
+                        <li style="margin-bottom: 8px;">连接你的OpenAI账号（输入API Key）</li>
+                        <li style="margin-bottom: 8px;">选择模型：gpt-3.5-turbo（性价比高）</li>
+                        <li style="margin-bottom: 8px;">配置Prompt（见下方）</li>
+                    </ol>
+
+                    <div class="code-block">
+<span class="comment"># 小红书文案生成Prompt</span>
+你是一位专业的小红书文案写手，擅长创作爆款内容。
+
+请基于以下主题，创作一篇小红书笔记：
+主题：{{话题}}
+
+要求：
+1. 标题要吸引人，使用数字、悬念或情感共鸣
+2. 正文分3-5段，每段不超过100字
+3. 添加适当的emoji，但不要过多
+4. 包含3-5个相关话题标签（带#号）
+5. 语气亲切自然，像朋友分享经验
+6. 结尾要有互动引导（提问或号召点赞收藏）
+
+请输出以下格式：
+标题：[标题内容]
+正文：[正文内容]
+标签：[标签内容]
+                    </div>
+
+                    <div class="tip">
+                        <div class="tip-title">💡 优化技巧</div>
+                        <p>可以根据你的账号定位调整Prompt，比如美妆、穿搭、美食等不同领域，让AI生成更精准的内容。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">配置Midjourney配图生成</div>
+                </div>
+                <div class="step-content">
+                    <p>让AI自动生成配图（需要Discord和Midjourney）：</p>
+                    <ol style="margin-left: 20px; color: #aaa;">
+                        <li style="margin-bottom: 8px;">添加模块：搜索 "Discord" 或使用 "HTTP" 模块</li>
+                        <li style="margin-bottom: 8px;">配置Midjourney API调用</li>
+                        <li style="margin-bottom: 8px;">设置图片风格参数</li>
+                    </ol>
+
+                    <div class="code-block">
+<span class="comment"># Midjourney Prompt示例</span>
+/imagine prompt: A beautiful lifestyle flatlay photo for Xiaohongshu, 
+{{主题相关描述}}, soft natural lighting, pastel color palette, 
+minimalist composition, high quality, 4k, aesthetic, 
+ar 3:4 --v 6.0 --style raw
+                    </div>
+
+                    <div class="warning">
+                        <div class="warning-title">⚠️ 注意</div>
+                        <p>Midjourney的API调用相对复杂，需要Discord Bot。新手可以先使用Canva或手动准备图片，后续再接入自动化。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">设置发布模块（人工审核模式）</div>
+                </div>
+                <div class="step-content">
+                    <p>为了安全起见，建议先使用人工审核模式：</p>
+                    <ol style="margin-left: 20px; color: #aaa;">
+                        <li style="margin-bottom: 8px;">添加 "Webhook" 或 "Email" 模块</li>
+                        <li style="margin-bottom: 8px;">配置通知：将生成的内容发送到你的微信/邮箱</li>
+                        <li style="margin-bottom: 8px;">包含：标题、正文、图片链接、一键发布链接</li>
+                    </ol>
+
+                    <div class="tip">
+                        <div class="tip-title">💡 进阶方案</div>
+                        <p>熟练后，可以使用浏览器自动化工具（如Selenium）实现真正的自动发布。但需要注意小红书的反爬虫机制，建议谨慎使用。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">7</div>
+                    <div class="step-title">测试和启用</div>
+                </div>
+                <div class="step-content">
+                    <p>完成配置后，进行测试：</p>
+                    <ol style="margin-left: 20px; color: #aaa;">
+                        <li style="margin-bottom: 8px;">点击 "Run once" 运行一次测试</li>
+                        <li style="margin-bottom: 8px;">检查每个模块的输出结果</li>
+                        <li style="margin-bottom: 8px;">如有错误，点击模块查看详情</li>
+                        <li style="margin-bottom: 8px;">测试通过后，开启 "Scheduling"</li>
+                        <li style="margin-bottom: 8px;">点击 "ON" 启用自动运行</li>
+                    </ol>
+
+                    <div class="tip">
+                        <div class="tip-title">✅ 成功标志</div>
+                        <p>你会在设定的时间收到邮件/微信通知，包含生成的内容和图片。确认无误后，即可手动发布到小红书。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tips -->
+        <section class="section">
+            <h2>💡 使用技巧</h2>
+            
+            <h3>内容优化</h3>
+            <ul style="color: #aaa; margin-left: 20px;">
+                <li style="margin-bottom: 12px;"><strong>建立选题库：</strong>在Google Sheets中积累100+个选题，让AI从中选择</li>
+                <li style="margin-bottom: 12px;"><strong>A/B测试：</strong>同时生成3个标题，测试哪个点击率更高</li>
+                <li style="margin-bottom: 12px;"><strong>风格训练：</strong>在Prompt中加入你过往爆款内容的示例，让AI学习你的风格</li>
+                <li style="margin-bottom: 12px;"><strong>热点结合：</strong>定期更新Prompt，加入当前热点话题</li>
+            </ul>
+
+            <h3>安全建议</h3>
+            <ul style="color: #aaa; margin-left: 20px;">
+                <li style="margin-bottom: 12px;"><strong>控制频率：</strong>每天最多3条，避免被判定为机器号</li>
+                <li style="margin-bottom: 12px;"><strong>人工审核：</strong>发布前务必检查内容，避免敏感词</li>
+                <li style="margin-bottom: 12px;"><strong>多账号轮换：</strong>如果有多个账号，建议分散使用</li>
+                <li style="margin-bottom: 12px;"><strong>备份内容：</strong>定期导出生成的内容，防止数据丢失</li>
+            </ul>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section">
+            <h2>❓ 常见问题</h2>
+            
+            <h3>Q1: 生成的内容会被判定为抄袭吗？</h3>
+            <p style="color: #aaa;">A: AI生成的内容是原创的，但建议进行人工润色，加入个人经验和观点，让内容更有独特性。</p>
+
+            <h3>Q2: 可以发布到其他平台吗？</h3>
+            <p style="color: #aaa;">A: 可以！修改Prompt适配不同平台的风格，比如抖音、公众号、知乎等。只需复制工作流，调整参数即可。</p>
+
+            <h3>Q3: 需要编程基础吗？</h3>
+            <p style="color: #aaa;">A: 完全不需要！Make.com是可视化工具，跟着教程一步步操作即可。如果遇到问题，可以加入我们的社群寻求帮助。</p>
+
+            <h3>Q4: 为什么我的内容没有流量？</h3>
+            <p style="color: #aaa;">A: 自动化工具只是提升效率，内容质量和运营策略才是关键。建议多研究爆款内容的特点，持续优化Prompt。</p>
+        </section>
+
+        <!-- Resources -->
+        <section class="section">
+            <h2>📚 相关资源</h2>
+            <ul class="resource-list">
+                <li>
+                    <span>📄</span>
+                    <div>
+                        <a href="#">Prompt优化指南</a>
+                        <br><span style="color: #666; font-size: 14px;">学习如何写出更好的AI Prompt</span>
+                    </div>
+                </li>
+                <li>
+                    <span>📄</span>
+                    <div>
+                        <a href="#">小红书算法解析</a>
+                        <br><span style="color: #666; font-size: 14px;">了解小红书推荐机制</span>
+                    </div>
+                </li>
+                <li>
+                    <span>📄</span>
+                    <div>
+                        <a href="#">爆款内容案例分析</a>
+                        <br><span style="color: #666; font-size: 14px;">100个真实爆款案例拆解</span>
+                    </div>
+                </li>
+                <li>
+                    <span>🎥</span>
+                    <div>
+                        <a href="#">视频教程：30分钟搭建完整工作流</a>
+                        <br><span style="color: #666; font-size: 14px;">跟着视频一步步操作</span>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Upgrade -->
+        <section class="section">
+            <h2>🚀 升级到PRO版</h2>
+            <p>免费版包含基础功能，如果你需要更多高级功能，可以考虑升级到PRO版：</p>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h4>🤖 全自动发布</h4>
+                    <p>无需人工审核，真正的全自动运营</p>
+                </div>
+                <div class="feature-item">
+                    <h4>📊 数据分析</h4>
+                    <p>自动抓取数据，生成详细分析报告</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🎯 智能优化</h4>
+                    <p>根据数据自动调整内容和发布时间</p>
+                </div>
+                <div class="feature-item">
+                    <h4>💬 高级回复</h4>
+                    <p>更智能的评论回复，支持多轮对话</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="#" class="btn btn-white">了解PRO版 →</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>开始你的自动化运营之旅</h2>
+        <p>按照本教程，30分钟即可搭建完成。遇到问题？加入我们的免费社群，与其他用户交流经验。</p>
+        <a href="#" class="btn btn-white">加入社群</a>
+    </section>
+</body>
+</html>
