@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>公众号文章自动化工作流 - FlowHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #fff; line-height: 1.6; }
+        .header { background: linear-gradient(135deg, #0066FF, #00D4FF); padding: 60px 20px; text-align: center; }
+        .header h1 { font-size: 42px; margin-bottom: 16px; }
+        .badge { background: #10b981; padding: 8px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; }
+        .content { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
+        .section { margin-bottom: 60px; }
+        .section h2 { font-size: 28px; margin-bottom: 24px; border-bottom: 2px solid #222; padding-bottom: 12px; }
+        .section h3 { font-size: 20px; color: #00D4FF; margin: 30px 0 16px; }
+        .section p { color: #aaa; margin-bottom: 16px; }
+        .step { background: #111; border: 1px solid #222; border-radius: 16px; padding: 30px; margin-bottom: 24px; }
+        .step-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+        .step-number { width: 48px; height: 48px; background: linear-gradient(135deg, #0066FF, #00D4FF); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; }
+        .step-title { font-size: 20px; font-weight: 600; }
+        .code-block { background: #0d0d0d; border: 1px solid #333; border-radius: 8px; padding: 16px; margin: 16px 0; font-family: monospace; font-size: 14px; overflow-x: auto; }
+        .tip { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 20px; margin: 24px 0; }
+        .tip-title { color: #10b981; font-weight: 600; margin-bottom: 8px; }
+        .warning { background: rgba(255, 107, 107, 0.1); border: 1px solid rgba(255, 107, 107, 0.3); border-radius: 12px; padding: 20px; margin: 24px 0; }
+        .warning-title { color: #ff6b6b; font-weight: 600; margin-bottom: 8px; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; background: #fff; color: #0066FF; text-decoration: none; border-radius: 12px; font-weight: 600; }
+        .cta-section { background: linear-gradient(135deg, #0066FF, #00D4FF); padding: 60px 20px; text-align: center; margin-top: 60px; }
+        .cta-section h2 { font-size: 32px; margin-bottom: 16px; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" style="color: rgba(255,255,255,0.8); text-decoration: none; display: block; margin-bottom: 20px;">← 返回工作流列表</a>
+        <div class="badge">🆓 免费版</div>
+        <h1>公众号文章自动化工作流</h1>
+        <p>自动监控热点、生成文章、制作封面、定时发布，让公众号运营效率提升5倍</p>
+        <div style="display: flex; justify-content: center; gap: 30px; margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.2);">
+            <div><div style="font-size: 18px; font-weight: 600;">⭐⭐</div><div style="font-size: 12px; opacity: 0.8;">难度</div></div>
+            <div><div style="font-size: 18px; font-weight: 600;">35分钟</div><div style="font-size: 12px; opacity: 0.8;">搭建时间</div></div>
+            <div><div style="font-size: 18px; font-weight: 600;">Make.com</div><div style="font-size: 12px; opacity: 0.8;">平台</div></div>
+        </div>
+    </header>
+
+    <main class="content">
+        <section class="section">
+            <h2>📋 工作流概述</h2>
+            <p>这个工作流将帮你实现公众号的自动化运营，从热点监控到文章发布，全流程自动化。特别适合内容创作者、企业公众号运营者。</p>
+            
+            <h3>核心功能</h3>
+            <ul style="color: #aaa; margin-left: 20px;">
+                <li style="margin-bottom: 12px;"><strong>热点监控</strong> - 自动追踪行业热点和 trending 话题</li>
+                <li style="margin-bottom: 12px;"><strong>大纲生成</strong> - AI自动生成文章大纲和结构</li>
+                <li style="margin-bottom: 12px;"><strong>文章撰写</strong> - 基于大纲自动生成完整文章</li>
+                <li style="margin-bottom: 12px;"><strong>封面制作</strong> - 自动生成公众号封面图</li>
+                <li style="margin-bottom: 12px;"><strong>定时发布</strong> - 选择最佳时间自动发布</li>
+            </ul>
+
+            <div class="tip">
+                <div class="tip-title">💡 适合人群</div>
+                <p>公众号运营者、内容创作者、企业新媒体团队、自媒体人</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>🛠️ 准备工作</h2>
+            <p>在开始搭建之前，你需要准备以下账号：</p>
+            
+            <h3>必需账号</h3>
+            <ul style="color: #aaa; margin-left: 20px;">
+                <li style="margin-bottom: 8px;">✓ <strong>Make.com</strong> - <a href="https://www.make.com" style="color: #00D4FF;">https://www.make.com</a>（免费版）</li>
+                <li style="margin-bottom: 8px;">✓ <strong>OpenAI API</strong> - <a href="https://platform.openai.com" style="color: #00D4FF;">https://platform.openai.com</a></li>
+                <li style="margin-bottom: 8px;">✓ <strong>公众号</strong> - 已认证的公众号</li>
+                <li style="margin-bottom: 8px;">✓ <strong>Midjourney</strong> - 用于生成封面（可选）</li>
+            </ul>
+
+            <div class="warning">
+                <div class="warning-title">⚠️ 重要提醒</div>
+                <p>公众号对自动化发布有限制，建议使用"人工审核模式"，即工作流生成内容后发送给你确认，确认后再手动发布。</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>🔧 搭建步骤</h2>
+            <p>按照以下步骤，约35分钟即可完成搭建：</p>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">创建Make.com场景</div>
+                </div>
+                <ol style="color: #aaa; margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">登录 Make.com</li>
+                    <li style="margin-bottom: 8px;">点击 "Create a new scenario"</li>
+                    <li style="margin-bottom: 8px;">命名为 "公众号文章自动化"</li>
+                </ol>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">设置定时触发器</div>
+                </div>
+                <ol style="color: #aaa; margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">添加 "Schedule" → "Run on a schedule"</li>
+                    <li style="margin-bottom: 8px;">设置每天早上 8:00 运行</li>
+                </ol>
+                <div class="tip">
+                    <div class="tip-title">💡 最佳发布时间</div>
+                    <p>早高峰：7:00-9:00 | 午高峰：12:00-13:00 | 晚高峰：20:00-22:00</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">配置热点监控</div>
+                </div>
+                <p style="color: #aaa;">使用 RSS 或 API 监控热点：</p>
+                <ol style="color: #aaa; margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">添加 "RSS" → "Retrieve RSS feed items"</li>
+                    <li style="margin-bottom: 8px;">输入热点源（如：微博热搜、百度热搜）</li>
+                    <li style="margin-bottom: 8px;">设置获取最新的5条热点</li>
+                </ol>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">配置ChatGPT文章生成</div>
+                </div>
+                <p style="color: #aaa;">添加 OpenAI 模块，配置Prompt：</p>
+                <div class="code-block">
+你是一位专业的公众号写手，擅长创作爆款文章。
+
+请基于以下热点，创作一篇公众号文章：
+热点：{{热点标题}}
+
+要求：
+1. 标题要有吸引力，使用数字、悬念或情感共鸣
+2. 正文1500-2000字，分5-7个小节
+3. 每节有小标题，结构清晰
+4. 语言通俗易懂，有深度但不晦涩
+5. 结尾有金句总结和互动引导
+
+请输出：
+标题：[文章标题]
+正文：[文章正文]
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">设置通知模块</div>
+                </div>
+                <p style="color: #aaa;">添加邮件或微信通知，接收生成的文章：</p>
+                <ol style="color: #aaa; margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">添加 "Email" → "Send an email"</li>
+                    <li style="margin-bottom: 8px;">配置收件人：你的邮箱</li>
+                    <li style="margin-bottom: 8px;">邮件内容：文章标题 + 正文 + 建议封面图关键词</li>
+                </ol>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">测试和启用</div>
+                </div>
+                <ol style="color: #aaa; margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">点击 "Run once" 测试运行</li>
+                    <li style="margin-bottom: 8px;">检查收到的邮件内容</li>
+                    <li style="margin-bottom: 8px;">调整Prompt优化内容质量</li>
+                    <li style="margin-bottom: 8px;">开启 "Scheduling" 启用自动运行</li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>💡 使用技巧</h2>
+            <ul style="color: #aaa; margin-left: 20px;">
+                <li style="margin-bottom: 12px;"><strong>建立选题库：</strong>在Google Sheets中积累热点关键词，让AI从中选择</li>
+                <li style="margin-bottom: 12px;"><strong>风格训练：</strong>在Prompt中加入你过往爆款文章作为示例</li>
+                <li style="margin-bottom: 12px;"><strong>人工润色：</strong>AI生成后人工优化，加入个人观点和经验</li>
+                <li style="margin-bottom: 12px;"><strong>封面制作：</strong>使用Canva或Midjourney根据关键词生成封面</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>❓ 常见问题</h2>
+            <h3>Q: 生成的文章会被判定为抄袭吗？</h3>
+            <p style="color: #aaa;">A: AI生成的内容是原创的，但建议进行人工润色，加入个人经验和观点。</p>
+
+            <h3>Q: 可以发布到其他平台吗？</h3>
+            <p style="color: #aaa;">A: 可以！修改Prompt适配不同平台风格，如知乎、头条、百家号等。</p>
+
+            <h3>Q: 为什么我的阅读量不高？</h3>
+            <p style="color: #aaa;">A: 自动化工具只是提升效率，内容质量和运营策略才是关键。建议多研究爆款文章。</p>
+        </section>
+
+        <section class="cta-section">
+            <h2>开始你的自动化运营之旅</h2>
+            <p style="opacity: 0.9; margin-bottom: 30px;">遇到问题？加入我们的免费社群，与其他用户交流经验</p>
+            <a href="#" class="btn">加入社群</a>
+        </section>
+    </main>
+</body>
+</html>
