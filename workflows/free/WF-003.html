@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>短视频脚本批量生成工作流 - FlowHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #fff; line-height: 1.6; }
+        .header { background: linear-gradient(135deg, #0066FF, #00D4FF); padding: 60px 20px; text-align: center; }
+        .header h1 { font-size: 42px; margin-bottom: 16px; }
+        .badge { background: #10b981; padding: 8px 20px; border-radius: 50px; font-size: 14px; font-weight: 600; }
+        .content { max-width: 800px; margin: 0 auto; padding: 60px 20px; }
+        .section { margin-bottom: 60px; }
+        .section h2 { font-size: 28px; margin-bottom: 24px; border-bottom: 2px solid #222; padding-bottom: 12px; }
+        .section h3 { font-size: 20px; color: #00D4FF; margin: 30px 0 16px; }
+        .section p { color: #aaa; margin-bottom: 16px; }
+        .step { background: #111; border: 1px solid #222; border-radius: 16px; padding: 30px; margin-bottom: 24px; }
+        .step-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+        .step-number { width: 48px; height: 48px; background: linear-gradient(135deg, #0066FF, #00D4FF); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 700; }
+        .step-title { font-size: 20px; font-weight: 600; }
+        .code-block { background: #0d0d0d; border: 1px solid #333; border-radius: 8px; padding: 16px; margin: 16px 0; font-family: monospace; font-size: 14px; overflow-x: auto; }
+        .tip { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; padding: 20px; margin: 24px 0; }
+        .tip-title { color: #10b981; font-weight: 600; margin-bottom: 8px; }
+        .warning { background: rgba(255, 107, 107, 0.1); border: 1px solid rgba(255, 107, 107, 0.3); border-radius: 12px; padding: 20px; margin: 24px 0; }
+        .warning-title { color: #ff6b6b; font-weight: 600; margin-bottom: 8px; }
+        .btn { display: inline-flex; align-items: center; gap: 8px; padding: 16px 32px; background: #fff; color: #0066FF; text-decoration: none; border-radius: 12px; font-weight: 600; }
+        .cta-section { background: linear-gradient(135deg, #0066FF, #00D4FF); padding: 60px 20px; text-align: center; margin-top: 60px; }
+        .cta-section h2 { font-size: 32px; margin-bottom: 16px; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" style="color: rgba(255,255,255,0.8); text-decoration: none; display: block; margin-bottom: 20px;">← 返回工作流列表</a>
+        <div class="badge">🆓 免费版</div>
+        <h1>短视频脚本批量生成工作流</h1>
+        <p>输入主题批量生成脚本、分镜、口播稿，脚本产出效率提升10倍</p>
+        <div style="display: flex; justify-content: center; gap: 30px; margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.2);">
+            <div><div style="font-size: 18px; font-weight: 600;">⭐</div><div style="font-size: 12px; opacity: 0.8;">难度</div></div>
+            <div><div style="font-size: 18px; font-weight: 600;">20分钟</div><div style="font-size: 12px; opacity: 0.8;">搭建时间</div></div>
+            <div><div style="font-size: 18px; font-weight: 600;">ChatGPT</div><div style="font-size: 12px; opacity: 0.8;">平台</div></div>
+        </div>
+    </header>
+
+    <main class="content">
+        <section class="section">
+            <h2>📋 工作流概述</h2>
+            <p>这个工作流帮你批量生成短视频脚本，包括分镜设计、口播稿、标签建议。适合抖音、视频号、小红书等平台。输入一个主题，自动生成10条脚本！</p>
+            
+            <h3>核心功能</h3>
+            <ul style="color: #aaa; margin-left: 20px;">
+                <li style="margin-bottom: 12px;"><strong>脚本生成</strong> - 批量生成10+条视频脚本</li>
+                <li style="margin-bottom: 12px;"><strong>分镜设计</strong> - 每个脚本包含详细分镜</li>
+                <li style="margin-bottom: 12px;"><strong>口播稿</strong> - 生成自然流畅的口播文案</li>
+                <li style="margin-bottom: 12px;"><strong>标签建议</strong> - 自动推荐热门标签</li>
+                <li style="margin-bottom: 12px;"><strong>发布排期</strong> - 自动生成发布时间表</li>
+            </ul>
+
+            <div class="tip">
+                <div class="tip-title">💡 适合人群</div>
+                <p>短视频创作者、MCN机构、自媒体人、企业短视频运营</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>🛠️ 准备工作</h2>
+            <ul style="color: #aaa; margin-left: 20px;">
+                <li style="margin-bottom: 8px;">✓ <strong>Make.com账号</strong> - <a href="https://www.make.com" style="color: #00D4FF;">https://www.make.com</a></li>
+                <li style="margin-bottom: 8px;">✓ <strong>OpenAI API</strong> - <a href="https://platform.openai.com" style="color: #00D4FF;">https://platform.openai.com</a></li>
+                <li style="margin-bottom: 8px;">✓ <strong>Google Sheets</strong> - 用于存储生成的脚本</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>🔧 搭建步骤</h2>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">创建Google Sheets表格</div>
+                </div>
+                <ol style="color: #aaa; margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">创建新表格，命名为"短视频脚本库"</li>
+                    <li style="margin-bottom: 8px;">设置表头：主题 | 脚本标题 | 口播稿 | 分镜 | 标签 | 状态</li>
+                    <li style="margin-bottom: 8px;">分享表格，获取可编辑链接</li>
+                </ol>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">创建Make.com场景</div>
+                </div>
+                <ol style="color: #aaa; margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">创建新场景，命名为"短视频脚本生成"</li>
+                    <li style="margin-bottom: 8px;">添加触发器：Webhook（用于接收主题）</li>
+                </ol>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">配置ChatGPT脚本生成</div>
+                </div>
+                <p style="color: #aaa;">添加OpenAI模块，配置Prompt：</p>
+                <div class="code-block">
+你是一位专业的短视频编剧，擅长创作爆款脚本。
+
+请基于主题"{{主题}}"，创作10个短视频脚本。
+
+每个脚本包含：
+1. 标题（15字以内，有吸引力）
+2. 口播稿（30-60秒，口语化，自然流畅）
+3. 分镜设计（3-5个镜头，描述画面和时长）
+4. 推荐标签（5个相关标签）
+
+风格要求：
+- 开头3秒要有"钩子"
+- 内容要有价值或情感共鸣
+- 结尾有互动引导
+- 适合抖音/视频号平台
+
+请以JSON格式输出，方便解析。
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">配置Google Sheets写入</div>
+                </div>
+                <ol style="color: #aaa; margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">添加 "Google Sheets" → "Add Row"</li>
+                    <li style="margin-bottom: 8px;">连接你的Google账号</li>
+                    <li style="margin-bottom: 8px;">选择"短视频脚本库"表格</li>
+                    <li style="margin-bottom: 8px;">映射字段：主题、标题、口播稿、分镜、标签</li>
+                </ol>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">测试和使用</div>
+                </div>
+                <ol style="color: #aaa; margin-left: 20px;">
+                    <li style="margin-bottom: 8px;">复制Webhook URL</li>
+                    <li style="margin-bottom: 8px;">在浏览器访问：URL?主题=你的主题</li>
+                    <li style="margin-bottom: 8px;">检查Google Sheets是否收到数据</li>
+                    <li style="margin-bottom: 8px;">启用场景</li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>💡 使用技巧</h2>
+            <ul style="color: #aaa; margin-left: 20px;">
+                <li style="margin-bottom: 12px;"><strong>批量生成：</strong>一次输入多个主题，用逗号分隔</li>
+                <li style="margin-bottom: 12px;"><strong>风格调整：</strong>在Prompt中加入风格要求，如"搞笑风格"、"知识科普风格"</li>
+                <li style="margin-bottom: 12px;"><strong>爆款复刻：</strong>输入爆款视频链接，让AI分析并生成类似脚本</li>
+                <li style="margin-bottom: 12px;"><strong>A/B测试：</strong>同一主题生成多个版本，测试哪个表现更好</li>
+            </ul>
+        </section>
+
+        <section class="cta-section">
+            <h2>开始批量生成脚本</h2>
+            <p style="opacity: 0.9; margin-bottom: 30px;">20分钟搭建，每天节省3小时，脚本产出效率提升10倍</p>
+            <a href="#" class="btn">加入社群获取帮助</a>
+        </section>
+    </main>
+</body>
+</html>
