@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>免费工作流 - FlowHub</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #0066FF 0%, #00D4FF 100%);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .header h1 { font-size: 36px; margin-bottom: 16px; }
+        .header p { opacity: 0.9; font-size: 18px; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+        }
+        .card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+        .card:hover {
+            border-color: #0066FF;
+            transform: translateY(-4px);
+        }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .icon {
+            width: 56px;
+            height: 56px;
+            background: #fff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+        .card h3 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .meta {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .desc {
+            color: #aaa;
+            margin-bottom: 16px;
+        }
+        .features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        .features li {
+            padding: 6px 0;
+            color: #888;
+            font-size: 14px;
+        }
+        .features li::before {
+            content: '✓ ';
+            color: #0066FF;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #0066FF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        .btn:hover {
+            background: #0052cc;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>🆓 免费工作流</h1>
+        <p>10+精品工作流完全免费，包含详细教程，一键导入即可使用</p>
+    </header>
+    <div class="container">
+        <div class="grid">
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">📝</div>
+                    <div>
+                        <h3>公众号文章自动化</h3>
+                        <div class="meta">⭐⭐ | 35分钟</div>
+                    </div>
+                </div>
+                <p class="desc">自动监控热点、生成文章、制作封面、定时发布</p>
+                <ul class="features">
+                    <li>热点监控</li><li>大纲生成</li><li>文章撰写</li><li>封面制作</li><li>定时发布</li>
+                </ul>
+                <a href="WF-002.html" class="btn">查看教程</a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">🎬</div>
+                    <div>
+                        <h3>短视频脚本批量生成</h3>
+                        <div class="meta">⭐ | 20分钟</div>
+                    </div>
+                </div>
+                <p class="desc">输入主题批量生成脚本、分镜、口播稿</p>
+                <ul class="features">
+                    <li>脚本生成</li><li>分镜设计</li><li>口播优化</li><li>标签建议</li><li>排期表</li>
+                </ul>
+                <a href="WF-003.html" class="btn">查看教程</a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">📊</div>
+                    <div>
+                        <h3>竞品监控自动化</h3>
+                        <div class="meta">⭐⭐⭐ | 50分钟</div>
+                    </div>
+                </div>
+                <p class="desc">监控竞品价格、新品、评价、营销策略</p>
+                <ul class="features">
+                    <li>价格监控</li><li>新品提醒</li><li>评价分析</li><li>策略跟踪</li><li>周报生成</li>
+                </ul>
+                <a href="WF-004.html" class="btn">查看教程</a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">📚</div>
+                    <div>
+                        <h3>个人知识库自动整理</h3>
+                        <div class="meta">⭐ | 25分钟</div>
+                    </div>
+                </div>
+                <p class="desc">自动收藏文章、提取重点、分类标签</p>
+                <ul class="features">
+                    <li>自动收藏</li><li>重点提取</li><li>智能分类</li><li>知识图谱</li><li>复习提醒</li>
+                </ul>
+                <a href="WF-005.html" class="btn">查看教程</a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">📧</div>
+                    <div>
+                        <h3>邮件自动处理</h3>
+                        <div class="meta">⭐⭐ | 30分钟</div>
+                    </div>
+                </div>
+                <p class="desc">自动分类邮件、回复常见问题、提取任务</p>
+                <ul class="features">
+                    <li>智能分类</li><li>自动回复</li><li>任务提取</li><li>日程同步</li><li>跟进提醒</li>
+                </ul>
+                <a href="WF-006.html" class="btn">查看教程</a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">📝</div>
+                    <div>
+                        <h3>会议纪要自动生成</h3>
+                        <div class="meta">⭐⭐ | 30分钟</div>
+                    </div>
+                </div>
+                <p class="desc">录音转文字、提取要点、生成纪要、分配任务</p>
+                <ul class="features">
+                    <li>语音转文字</li><li>要点提取</li><li>纪要生成</li><li>任务分配</li><li>邮件发送</li>
+                </ul>
+                <a href="WF-007.html" class="btn">查看教程</a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">👥</div>
+                    <div>
+                        <h3>客户跟进自动化</h3>
+                        <div class="meta">⭐⭐ | 35分钟</div>
+                    </div>
+                </div>
+                <p class="desc">新客户欢迎、定期跟进、生日祝福、复购提醒</p>
+                <ul class="features">
+                    <li>自动欢迎</li><li>定期跟进</li><li>节日祝福</li><li>复购提醒</li><li>流失预警</li>
+                </ul>
+                <a href="WF-008.html" class="btn">查看教程</a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">📈</div>
+                    <div>
+                        <h3>数据报表自动化</h3>
+                        <div class="meta">⭐⭐⭐ | 45分钟</div>
+                    </div>
+                </div>
+                <p class="desc">多平台数据抓取、自动计算、可视化报表</p>
+                <ul class="features">
+                    <li>数据抓取</li><li>自动计算</li><li>可视化</li><li>定时发送</li><li>异常预警</li>
+                </ul>
+                <a href="WF-009.html" class="btn">查看教程</a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <div class="icon">📄</div>
+                    <div>
+                        <h3>简历自动优化</h3>
+                        <div class="meta">⭐ | 20分钟</div>
+                    </div>
+                </div>
+                <p class="desc">分析JD、优化简历、生成求职信、投递跟踪</p>
+                <ul class="features">
+                    <li>JD分析</li><li>简历优化</li><li>求职信生成</li><li>投递记录</li><li>面试提醒</li>
+                </ul>
+                <a href="WF-010.html" class="btn">查看教程</a>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
