@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowHub - AI自动化工作流市场</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0066FF 0%, #00D4FF 100%);
+            padding: 120px 20px 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></svg>');
+            background-size: 100px 100px;
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: #fff;
+            color: #0066FF;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        /* Features */
+        .features {
+            padding: 100px 20px;
+            background: #0a0a0a;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .section-header p {
+            font-size: 18px;
+            color: #888;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        
+        .feature-card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            border-color: #0066FF;
+            transform: translateY(-4px);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #0066FF, #00D4FF);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .feature-card p {
+            color: #888;
+            font-size: 15px;
+        }
+        
+        /* Workflows */
+        .workflows {
+            padding: 100px 20px;
+            background: #050505;
+        }
+        
+        .workflows-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+        }
+        
+        .workflow-card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .workflow-card:hover {
+            border-color: #0066FF;
+            transform: translateY(-4px);
+        }
+        
+        .workflow-header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 24px;
+            position: relative;
+        }
+        
+        .workflow-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #FF6B35;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .workflow-icon {
+            width: 56px;
+            height: 56px;
+            background: #fff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+        
+        .workflow-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .workflow-meta {
+            display: flex;
+            gap: 16px;
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .workflow-body {
+            padding: 24px;
+        }
+        
+        .workflow-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .workflow-features li {
+            padding: 8px 0;
+            color: #aaa;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .workflow-features li::before {
+            content: '✓';
+            color: #00D4FF;
+            font-weight: bold;
+        }
+        
+        .workflow-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+        }
+        
+        .workflow-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #00D4FF;
+        }
+        
+        .workflow-price span {
+            font-size: 14px;
+            color: #666;
+            text-decoration: line-through;
+            margin-left: 8px;
+        }
+        
+        .btn-small {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+        
+        /* Pricing */
+        .pricing {
+            padding: 100px 20px;
+            background: #0a0a0a;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .pricing-card.popular {
+            border-color: #0066FF;
+            transform: scale(1.05);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0066FF;
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .pricing-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .pricing-card .price {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 24px 0;
+        }
+        
+        .pricing-card .price span {
+            font-size: 16px;
+            color: #888;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 32px;
+        }
+        
+        .pricing-features li {
+            padding: 12px 0;
+            color: #aaa;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .pricing-features li::before {
+            content: '✓';
+            color: #00D4FF;
+            font-weight: bold;
+        }
+        
+        /* FAQ */
+        .faq {
+            padding: 100px 20px;
+            background: #050505;
+        }
+        
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .faq-answer {
+            padding: 0 24px 24px;
+            color: #888;
+            display: none;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 1px solid #222;
+        }
+        
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #0066FF, #00D4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .footer-content p {
+            color: #666;
+            margin-bottom: 24px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #fff;
+        }
+        
+        .copyright {
+            color: #444;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .section-header h2 {
+                font-size: 28px;
+            }
+            
+            .workflows-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-card.popular {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">🚀 已帮助 2,000+ 用户实现自动化</div>
+            <h1>让 AI 为你工作</h1>
+            <p>FlowHub 是中国最大的 AI 自动化工作流市场。一键导入，无需编程，让繁琐的工作自动完成。</p>
+            <div class="cta-buttons">
+                <a href="#workflows" class="btn btn-primary">浏览工作流 →</a>
+                <a href="#pricing" class="btn btn-secondary">查看会员方案</a>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">精品工作流</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2,000+</div>
+                    <div class="stat-label">活跃用户</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10万+</div>
+                    <div class="stat-label">小时节省</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>为什么选择 FlowHub？</h2>
+                <p>我们提供经过验证的 AI 工作流，让你无需技术背景也能享受自动化的便利</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>一键导入</h3>
+                    <p>无需编程，点击链接即可将工作流导入到你的 Make.com/Zapier 账号，5分钟完成配置</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>经过验证</h3>
+                    <p>每个工作流都经过实际测试，确保稳定运行。我们持续更新，适配平台变化</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>完全可定制</h3>
+                    <p>工作流完全可编辑，支持自定义参数、Prompt 和流程，满足个性化需求</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>超高 ROI</h3>
+                    <p>一个工作流售价 ¥99-199，但每月可帮你节省价值 ¥3000+ 的时间成本</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>持续更新</h3>
+                    <p>购买后享受免费更新，平台 API 变动时我们会第一时间适配</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>专属支持</h3>
+                    <p>提供详细教程、视频演示和专属答疑群，确保你能顺利使用</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflows -->
+    <section class="workflows" id="workflows">
+        <div class="container">
+            <div class="section-header">
+                <h2>热门工作流</h2>
+                <p>精选最受欢迎的 AI 自动化工作流，总有一款适合你</p>
+            </div>
+            <div class="workflows-grid">
+                <!-- Workflow 1 -->
+                <div class="workflow-card">
+                    <div class="workflow-header">
+                        <div class="workflow-badge">🔥 爆款</div>
+                        <div class="workflow-icon">📱</div>
+                        <h3>小红书全自动运营</h3>
+                        <div class="workflow-meta">
+                            <span>⭐⭐ 中级</span>
+                            <span>30分钟搭建</span>
+                        </div>
+                    </div>
+                    <div class="workflow-body">
+                        <ul class="workflow-features">
+                            <li>每日自动选题推荐</li>
+                            <li>AI生成文案+配图</li>
+                            <li>定时自动发布</li>
+                            <li>评论自动回复</li>
+                            <li>数据日报推送</li>
+                        </ul>
+                        <div class="workflow-footer">
+                            <div class="workflow-price">¥149 <span>¥299</span></div>
+                            <a href="#" class="btn btn-primary btn-small">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workflow 2 -->
+                <div class="workflow-card">
+                    <div class="workflow-header">
+                        <div class="workflow-badge">🔥 爆款</div>
+                        <div class="workflow-icon">🛒</div>
+                        <h3>电商订单全自动处理</h3>
+                        <div class="workflow-meta">
+                            <span>⭐⭐⭐ 高级</span>
+                            <span>45分钟搭建</span>
+                        </div>
+                    </div>
+                    <div class="workflow-body">
+                        <ul class="workflow-features">
+                            <li>订单自动确认</li>
+                            <li>库存同步更新</li>
+                            <li>物流自动通知</li>
+                            <li>售后自动处理</li>
+                            <li>评价自动请求</li>
+                        </ul>
+                        <div class="workflow-footer">
+                            <div class="workflow-price">¥199 <span>¥399</span></div>
+                            <a href="#" class="btn btn-primary btn-small">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workflow 3 -->
+                <div class="workflow-card">
+                    <div class="workflow-header">
+                        <div class="workflow-badge">🔥 爆款</div>
+                        <div class="workflow-icon">💬</div>
+                        <h3>AI客服自动回复</h3>
+                        <div class="workflow-meta">
+                            <span>⭐⭐⭐ 高级</span>
+                            <span>40分钟搭建</span>
+                        </div>
+                    </div>
+                    <div class="workflow-body">
+                        <ul class="workflow-features">
+                            <li>意图自动识别</li>
+                            <li>常见问题自动回复</li>
+                            <li>复杂问题转人工</li>
+                            <li>对话记录分析</li>
+                            <li>客户画像生成</li>
+                        </ul>
+                        <div class="workflow-footer">
+                            <div class="workflow-price">¥169 <span>¥349</span></div>
+                            <a href="#" class="btn btn-primary btn-small">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workflow 4 -->
+                <div class="workflow-card">
+                    <div class="workflow-header">
+                        <div class="workflow-icon">📝</div>
+                        <h3>公众号文章自动化</h3>
+                        <div class="workflow-meta">
+                            <span>⭐⭐ 中级</span>
+                            <span>35分钟搭建</span>
+                        </div>
+                    </div>
+                    <div class="workflow-body">
+                        <ul class="workflow-features">
+                            <li>热点话题监控</li>
+                            <li>大纲自动生成</li>
+                            <li>文章自动撰写</li>
+                            <li>封面图生成</li>
+                            <li>定时发布</li>
+                        </ul>
+                        <div class="workflow-footer">
+                            <div class="workflow-price">¥129 <span>¥259</span></div>
+                            <a href="#" class="btn btn-primary btn-small">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workflow 5 -->
+                <div class="workflow-card">
+                    <div class="workflow-header">
+                        <div class="workflow-icon">🎬</div>
+                        <h3>短视频脚本批量生成</h3>
+                        <div class="workflow-meta">
+                            <span>⭐ 初级</span>
+                            <span>20分钟搭建</span>
+                        </div>
+                    </div>
+                    <div class="workflow-body">
+                        <ul class="workflow-features">
+                            <li>输入主题批量生成</li>
+                            <li>自动分镜设计</li>
+                            <li>口播稿优化</li>
+                            <li>标签建议</li>
+                            <li>发布排期表</li>
+                        </ul>
+                        <div class="workflow-footer">
+                            <div class="workflow-price">¥99 <span>¥199</span></div>
+                            <a href="#" class="btn btn-primary btn-small">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Workflow 6 -->
+                <div class="workflow-card">
+                    <div class="workflow-header">
+                        <div class="workflow-icon">📊</div>
+                        <h3>竞品监控自动化</h3>
+                        <div class="workflow-meta">
+                            <span>⭐⭐⭐ 高级</span>
+                            <span>50分钟搭建</span>
+                        </div>
+                    </div>
+                    <div class="workflow-body">
+                        <ul class="workflow-features">
+                            <li>竞品价格监控</li>
+                            <li>新品上架提醒</li>
+                            <li>评价情感分析</li>
+                            <li>营销策略跟踪</li>
+                            <li>周报自动生成</li>
+                        </ul>
+                        <div class="workflow-footer">
+                            <div class="workflow-price">¥179 <span>¥359</span></div>
+                            <a href="#" class="btn btn-primary btn-small">查看详情</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>选择适合你的方案</h2>
+                <p>从免费体验到企业级服务，满足不同需求</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>免费体验</h3>
+                    <div class="price">¥0<span>/月</span></div>
+                    <ul class="pricing-features">
+                        <li>浏览所有工作流</li>
+                        <li>查看基础介绍</li>
+                        <li>每周免费工作流1个</li>
+                        <li>社区支持</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary" style="width: 100%;">免费开始</a>
+                </div>
+                <div class="pricing-card popular">
+                    <div class="popular-badge">最受欢迎</div>
+                    <h3>月度会员</h3>
+                    <div class="price">¥99<span>/月</span></div>
+                    <ul class="pricing-features">
+                        <li>无限下载所有工作流</li>
+                        <li>新工作流优先体验</li>
+                        <li>基础技术支持</li>
+                        <li>会员专属社群</li>
+                        <li>每月1次定制咨询</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary" style="width: 100%;">立即订阅</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>年度会员</h3>
+                    <div class="price">¥799<span>/年</span></div>
+                    <ul class="pricing-features">
+                        <li>月度会员所有权益</li>
+                        <li>每月1次定制咨询</li>
+                        <li>工作流搭建课程</li>
+                        <li>1对1技术指导</li>
+                        <li>分销权限（赚30%）</li>
+                        <li>省 ¥389</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary" style="width: 100%;">立即订阅</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>常见问题</h2>
+                <p>还有疑问？查看常见问题或联系我们</p>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>需要编程基础吗？</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        完全不需要！我们的每个工作流都配有详细的图文教程和视频演示，跟着步骤操作即可。即使你是技术小白，也能在30分钟内完成搭建。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>工作流购买后可以永久使用吗？</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        是的！购买后工作流永久属于你，可以无限次使用。同时我们还提供免费更新服务，当平台API变动时，我们会第一时间适配并推送更新。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>使用工作流需要额外付费吗？</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        工作流本身需要依赖第三方平台（如Make.com、OpenAI等），这些平台可能有额外费用。我们会在每个工作流页面详细列出所需成本，通常在¥50-100/月。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>可以定制专属工作流吗？</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        可以！我们提供工作流定制服务，根据你的具体需求搭建专属自动化流程。月度会员每月包含1次免费咨询，年度会员包含更多定制服务。企业客户可联系获取专属方案。
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>购买后如何获取工作流？</span>
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        购买后你会收到一封邮件，包含工作流的导入链接和详细教程。点击链接即可一键导入到你的Make.com或Zapier账号，然后按照教程配置参数即可开始使用。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">FlowHub</div>
+            <p>让 AI 为你工作，释放你的时间和创造力</p>
+            <div class="footer-links">
+                <a href="#">关于我们</a>
+                <a href="#">工作流列表</a>
+                <a href="#">定价方案</a>
+                <a href="#">联系我们</a>
+            </div>
+            <p class="copyright">© 2026 FlowHub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                item.parentElement.classList.toggle('active');
+            });
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
